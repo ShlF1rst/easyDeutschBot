@@ -13,7 +13,7 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
     	rs = con.exec('SELECT * from public."USERS" WHERE user_id = $1;',[message.from.id])
     	words = con.exec('SELECT * from public."WORDS";')
 		case message
-			
+
 	when Telegram::Bot::Types::CallbackQuery
 		answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Продолжаем', 'Пока хватит'], one_time_keyboard: true)
     	if (message.data == '1') 
@@ -40,7 +40,10 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
     			answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Давай начнём!', 'Я пока не хочу...'], one_time_keyboard: true)
     			bot.api.send_message(chat_id: message.chat.id, text: question, reply_markup: answers)
 			else
-    			answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Выучим новые слова!', 'Хочу проверить уже пройденные!','Я пока не хочу...'], one_time_keyboard: true)
+				if (rs.getvalue(0,1).to_i >= 5)
+    				answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Выучим новые слова!', 'Хочу проверить уже пройденные!','Я пока не хочу...'], one_time_keyboard: true)
+				else
+					answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Выучим новые слова!','Я пока не хочу...'], one_time_keyboard: true)	
 				bot.api.send_message(
 				chat_id: message.chat.id,
 				text: "Привет, #{message.from.first_name}! Рад снова видеть тебя. Чем займёмся сегодня?",reply_markup: answers)		
