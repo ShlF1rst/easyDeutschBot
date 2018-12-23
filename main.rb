@@ -44,6 +44,7 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
     				answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Выучим новые слова!', 'Хочу проверить уже пройденные!','Я пока не хочу...'], one_time_keyboard: true)
 				else
 					answers = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: ['Выучим новые слова!','Я пока не хочу...'], one_time_keyboard: true)	
+				end
 				bot.api.send_message(
 				chat_id: message.chat.id,
 				text: "Привет, #{message.from.first_name}! Рад снова видеть тебя. Чем займёмся сегодня?",reply_markup: answers)		
