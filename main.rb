@@ -5,7 +5,7 @@ TOKEN = '789097081:AAENHZKLEIllcLCOatENkVgcNT8nZObDa5I'
 
 DB_TOKEN = 'postgres://iuowrrdbjarvap:83d39894f36baebf253f0d606e1a99abae3189f7921f4b49573282dcaf423eb4@ec2-54-235-247-209.compute-1.amazonaws.com:5432/d9a40bh9412n1n'
 
-TOTAL_COUNT = 10
+TOTAL_COUNT = 25
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
 	bot.listen do |message|
